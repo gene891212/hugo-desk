@@ -1,0 +1,9 @@
+Original Hugo Desk demonstration illustrations: Forest, Coast, and Mountains.
+Created from geometric shapes specifically for this project; no downloaded
+artwork, photographs, or third-party reference assets are used.
+
+License: MIT, the same as the Hugo Desk project.
+Rebuild source: scripts/generate-demo-images.py (requires Pillow).
+
+The Mountains image uses a Unicode filename in gallery/ to exercise nested
+bundle assets and Unicode paths. The article is original demo copy.

@@ -1,0 +1,14 @@
+baseURL = 'https://example.org/blog/'
+title = 'Hugo Desk test site'
+defaultContentLanguage = 'en'
+
+[permalinks.page]
+posts = '/articles/:year/:slug/'
+
+[languages.en]
+locale = 'en'
+weight = 1
+
+[languages.zh]
+locale = 'zh-TW'
+weight = 2

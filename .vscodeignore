@@ -1,0 +1,11 @@
+.gitignore
+.vscodeignore
+*.vsix
+.git/**
+.vscode/**
+.vscode-test/**
+test/**
+scripts/**
+.github/**
+output/**
+!CONTRIBUTING.md

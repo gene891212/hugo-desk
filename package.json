@@ -1,0 +1,374 @@
+{
+  "name": "hugo-desk",
+  "displayName": "Hugo Desk",
+  "description": "Write, organize, and preview Hugo content in your editor.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "license": "MIT",
+  "author": "gene891212",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gene891212/hugo-desk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gene891212/hugo-desk/issues"
+  },
+  "homepage": "https://github.com/gene891212/hugo-desk#readme",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onWebviewPanel:blogExplorer.preview"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "blogExplorer",
+          "title": "Hugo Desk",
+          "icon": "media/blog.svg"
+        }
+      ]
+    },
+    "views": {
+      "blogExplorer": [
+        {
+          "id": "blogExplorer.content",
+          "name": "Content",
+          "icon": "media/blog.svg"
+        },
+        {
+          "id": "blogExplorer.server",
+          "name": "Server"
+        },
+        {
+          "id": "blogExplorer.git",
+          "name": "Changes"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "blogExplorer.newFile",
+        "title": "New File",
+        "category": "Hugo Desk",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "blogExplorer.newFolder",
+        "title": "New Post Folder (hugo new)",
+        "category": "Hugo Desk",
+        "icon": "$(new-folder)"
+      },
+      {
+        "command": "blogExplorer.startServer",
+        "enablement": "!blogExplorerServerBusy",
+        "title": "Start Hugo Server",
+        "category": "Hugo Desk",
+        "icon": "$(play)"
+      },
+      {
+        "command": "blogExplorer.startDebugServer",
+        "enablement": "!blogExplorerServerBusy",
+        "title": "Start Hugo Server (Debug, includes drafts)",
+        "category": "Hugo Desk",
+        "icon": "$(debug-start)"
+      },
+      {
+        "command": "blogExplorer.stopServer",
+        "title": "Stop Hugo Server",
+        "category": "Hugo Desk",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "blogExplorer.refresh",
+        "title": "Refresh Content",
+        "category": "Hugo Desk",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "blogExplorer.filter",
+        "title": "Search and Filter Articles",
+        "category": "Hugo Desk",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "blogExplorer.clearFilter",
+        "title": "Clear Article Filter",
+        "category": "Hugo Desk",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "blogExplorer.refreshGit",
+        "title": "Refresh Changes",
+        "category": "Hugo Desk",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "blogExplorer.rename",
+        "title": "Rename",
+        "category": "Hugo Desk",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "blogExplorer.delete",
+        "title": "Delete",
+        "category": "Hugo Desk",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "blogExplorer.copy",
+        "title": "Copy",
+        "category": "Hugo Desk"
+      },
+      {
+        "command": "blogExplorer.cut",
+        "title": "Cut",
+        "category": "Hugo Desk"
+      },
+      {
+        "command": "blogExplorer.paste",
+        "title": "Paste",
+        "category": "Hugo Desk"
+      },
+      {
+        "command": "blogExplorer.revealInFileExplorer",
+        "title": "Reveal in File Explorer",
+        "category": "Hugo Desk"
+      },
+      {
+        "command": "blogExplorer.copyPath",
+        "title": "Copy Path",
+        "category": "Hugo Desk"
+      },
+      {
+        "command": "blogExplorer.copyRelativePath",
+        "title": "Copy Relative Path",
+        "category": "Hugo Desk"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "blogExplorer.startServer",
+          "when": "view == blogExplorer.server",
+          "group": "navigation@1"
+        },
+        {
+          "command": "blogExplorer.startDebugServer",
+          "when": "view == blogExplorer.server",
+          "group": "navigation@2"
+        },
+        {
+          "command": "blogExplorer.stopServer",
+          "when": "view == blogExplorer.server && blogExplorerServerRunning",
+          "group": "navigation@3"
+        },
+        {
+          "command": "blogExplorer.newFile",
+          "when": "view == blogExplorer.content",
+          "group": "navigation@1"
+        },
+        {
+          "command": "blogExplorer.newFolder",
+          "when": "view == blogExplorer.content",
+          "group": "navigation@2"
+        },
+        {
+          "command": "blogExplorer.filter",
+          "when": "view == blogExplorer.content",
+          "group": "navigation@3"
+        },
+        {
+          "command": "blogExplorer.clearFilter",
+          "when": "view == blogExplorer.content && blogExplorerFilterActive",
+          "group": "navigation@4"
+        },
+        {
+          "command": "blogExplorer.refresh",
+          "when": "view == blogExplorer.content",
+          "group": "navigation@5"
+        },
+        {
+          "command": "blogExplorer.refreshGit",
+          "when": "view == blogExplorer.git",
+          "group": "navigation@1"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "blogExplorer.newFile",
+          "when": "view == blogExplorer.content && (viewItem == blogFile || viewItem == blogFolder || viewItem == blogAssetGroup)",
+          "group": "1_new@1"
+        },
+        {
+          "command": "blogExplorer.newFolder",
+          "when": "view == blogExplorer.content && (viewItem == blogFile || viewItem == blogFolder || viewItem == blogAssetGroup)",
+          "group": "1_new@2"
+        },
+        {
+          "command": "blogExplorer.revealInFileExplorer",
+          "when": "view == blogExplorer.content && (viewItem == blogFile || viewItem == blogFolder)",
+          "group": "2_workspace@1"
+        },
+        {
+          "command": "blogExplorer.cut",
+          "when": "view == blogExplorer.content && (viewItem == blogFile || viewItem == blogFolder)",
+          "group": "5_cutcopypaste@1"
+        },
+        {
+          "command": "blogExplorer.copy",
+          "when": "view == blogExplorer.content && (viewItem == blogFile || viewItem == blogFolder)",
+          "group": "5_cutcopypaste@2"
+        },
+        {
+          "command": "blogExplorer.paste",
+          "when": "view == blogExplorer.content && (viewItem == blogFile || viewItem == blogFolder || viewItem == blogAssetGroup)",
+          "group": "5_cutcopypaste@3"
+        },
+        {
+          "command": "blogExplorer.copyPath",
+          "when": "view == blogExplorer.content && (viewItem == blogFile || viewItem == blogFolder)",
+          "group": "6_copypath@1"
+        },
+        {
+          "command": "blogExplorer.copyRelativePath",
+          "when": "view == blogExplorer.content && (viewItem == blogFile || viewItem == blogFolder)",
+          "group": "6_copypath@2"
+        },
+        {
+          "command": "blogExplorer.rename",
+          "when": "view == blogExplorer.content && (viewItem == blogFile || viewItem == blogFolder)",
+          "group": "7_modification@1"
+        },
+        {
+          "command": "blogExplorer.delete",
+          "when": "view == blogExplorer.content && (viewItem == blogFile || viewItem == blogFolder)",
+          "group": "7_modification@2"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "blogExplorer.rename",
+        "key": "F2",
+        "when": "focusedView == 'blogExplorer.content'"
+      },
+      {
+        "command": "blogExplorer.delete",
+        "key": "delete",
+        "mac": "cmd+backspace",
+        "when": "focusedView == 'blogExplorer.content'"
+      },
+      {
+        "command": "blogExplorer.copy",
+        "key": "ctrl+c",
+        "mac": "cmd+c",
+        "when": "focusedView == 'blogExplorer.content'"
+      },
+      {
+        "command": "blogExplorer.cut",
+        "key": "ctrl+x",
+        "mac": "cmd+x",
+        "when": "focusedView == 'blogExplorer.content'"
+      },
+      {
+        "command": "blogExplorer.paste",
+        "key": "ctrl+v",
+        "mac": "cmd+v",
+        "when": "focusedView == 'blogExplorer.content'"
+      },
+      {
+        "command": "blogExplorer.revealInFileExplorer",
+        "key": "shift+alt+r",
+        "when": "focusedView == 'blogExplorer.content'"
+      },
+      {
+        "command": "blogExplorer.copyPath",
+        "key": "shift+alt+c",
+        "when": "focusedView == 'blogExplorer.content'"
+      },
+      {
+        "command": "blogExplorer.copyRelativePath",
+        "key": "ctrl+k ctrl+shift+c",
+        "mac": "cmd+k cmd+shift+c",
+        "when": "focusedView == 'blogExplorer.content'"
+      }
+    ],
+    "configuration": {
+      "title": "Hugo Desk",
+      "properties": {
+        "blogExplorer.previewLocation": {
+          "type": "string",
+          "enum": [
+            "beside",
+            "active"
+          ],
+          "enumDescriptions": [
+            "Open the preview in the editor group next to the article, splitting once if needed.",
+            "Open the preview in the current editor group (it covers the article when there is only one group)."
+          ],
+          "default": "beside",
+          "description": "Where the Hugo preview opens."
+        },
+        "blogExplorer.newFileTemplate": {
+          "type": "boolean",
+          "default": true,
+          "description": "New File scaffolds new .md files by running \"hugo new\" -- picking up this project's archetypes, the same way New Post Folder already does -- instead of creating an empty file. Files without a .md extension are always created empty; this setting doesn't affect them. Requires hugo on PATH."
+        },
+        "blogExplorer.followActiveEditor": {
+          "type": "boolean",
+          "default": true,
+          "description": "Let an open Hugo preview re-point itself at whichever article you switch to. The preview tab is only re-titled and reloaded in place, never brought to the front."
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@vscode/test-electron": "3.1.0",
+    "@vscode/vsce": "^4.0.0",
+    "playwright": "^1.64.1"
+  },
+  "scripts": {
+    "check": "node scripts/check-syntax.js",
+    "test": "node --test test/*.test.js",
+    "test:editor": "node scripts/test-editor.js",
+    "vscode:prepublish": "npm run check && npm test",
+    "package": "vsce package --allow-missing-repository --no-rewrite-relative-links",
+    "package:release": "npm run release:check && vsce package",
+    "package:check": "vsce ls",
+    "release:check": "node scripts/check-release.js"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "csv-parse": "^7.0.3",
+    "yaml": "^2.9.1"
+  },
+  "preview": true,
+  "icon": "media/icon.png",
+  "keywords": [
+    "hugo",
+    "blog",
+    "markdown",
+    "writing",
+    "preview",
+    "static site"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Hugo Desk runs Hugo and Git from the workspace. Trust the workspace to enable it."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "Hugo Desk requires a local filesystem and the Hugo executable."
+    }
+  }
+}

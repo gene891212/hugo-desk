@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="{{ .Language.Lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ .Title }}</title>
+  <style>
+    body { margin: 0; color: #20322e; background: #faf9f5; font: 18px/1.7 system-ui, sans-serif; }
+    main { max-width: 680px; padding: 64px 40px; margin: auto; }
+    header { color: #62716b; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; border-bottom: 1px solid #deded5; padding-bottom: 24px; }
+    h1 { font: 500 42px/1.2 Georgia, serif; margin: 48px 0 20px; }
+    a { color: #27644f; }
+    code { font-size: .85em; background: #eeeee7; padding: 2px 5px; }
+    img { display: block; max-width: 100%; height: auto; }
+  </style>
+</head>
+<body><main><header>Hugo Desk · Demo site</header><h1>{{ .Title }}</h1>{{ .Content }}</main></body>
+</html>
