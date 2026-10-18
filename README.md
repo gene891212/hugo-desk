@@ -5,6 +5,12 @@
 A focused workspace for Hugo: browse articles without the rest of your site's
 source files, keep bundle assets together, and preview your writing in place.
 
+[VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gene891212.hugo-desk) ·
+[Open VSX](https://open-vsx.org/extension/gene891212/hugo-desk)
+
+Extension ID: `gene891212.hugo-desk`. If a store listing is not available yet,
+install the VSIX manually using the steps below.
+
 **Article preview**
 
 ![Start Hugo Server, then switch articles while the local preview follows](media/demo.gif)
@@ -28,7 +34,8 @@ Coast, and Mountains illustrations included under the project's MIT license.
 
 1. Install [Hugo](https://gohugo.io/installation/). Check that `hugo version` works
    in your editor's terminal. Install Git to use the Changes view.
-2. Install the VSIX using **Extensions → … → Install from VSIX…**.
+2. Search Extensions for `gene891212.hugo-desk`, or install the VSIX using
+   **Extensions → … → Install from VSIX…**.
 3. Open your Hugo project folder and trust the workspace.
 4. Select **Hugo Desk** in the Activity Bar, then open an article in **Content**.
 5. Click **Start Hugo Server** in **Server**. Use **Start Hugo Server (Debug,

@@ -1,7 +1,7 @@
 # Release preparation
 
-0.1.0 is an unreleased preview. This repository has no publish script or
-publishing workflow. Publishing requires a separate, explicit owner action.
+0.1.0 is a preview prepared for publication. This repository has no publish
+script or publishing workflow. Building a VSIX does not upload it to a registry.
 
 ## Release identity
 
@@ -40,7 +40,8 @@ No command above creates a GitHub repository, registry listing, or public releas
 
 ## Upload the validated artifact
 
-Use the same `hugo-desk-0.1.0.vsix` on both registries.
+Before packaging, confirm the version and changelog date match the intended
+publication. Use the same `hugo-desk-0.1.0.vsix` on both registries.
 
 - Marketplace: open [Manage Publishers](https://marketplace.visualstudio.com/manage/publishers/),
   select `gene891212`, and upload the VSIX as a new Visual Studio Code extension.
@@ -61,5 +62,8 @@ Use the same `hugo-desk-0.1.0.vsix` on both registries.
   ```
 
 After successful uploads, verify both public listings and install their version
-in a clean profile. Replace the changelog's `Unreleased` label with the release
-date, tag the validated source, and attach the same VSIX to the GitHub release.
+in a clean profile. Tag the validated source and attach the same VSIX to the
+GitHub release. Public listing URLs:
+
+- [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gene891212.hugo-desk)
+- [Open VSX](https://open-vsx.org/extension/gene891212/hugo-desk)
