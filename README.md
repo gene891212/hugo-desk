@@ -135,12 +135,14 @@ the selected directory, or the content root when nothing is selected.
 | Platform | Verification so far |
 | --- | --- |
 | Windows | Real terminal/Webview lifecycle checks passed in VS Code 1.90.2 and 1.142.0, including alternate ports, mode switching, reconnecting to a running terminal, and stopping only the owned server. Full window reload and restored article following were also checked in 1.142.0. |
-| macOS / Linux | Use the same server controls and port-conflict flow. See the linked CI run for automated results; visual verification is pending. |
+| macOS / Linux | Module tests, real Hugo lifecycle checks, VS Code 1.90.2 terminal/Webview tests, dependency audit, and VSIX packaging passed in CI. Visual verification remains pending. |
 
 Controller reactivation and restored preview behavior have regression coverage.
 Windows window-reload checks confirmed that a running server reconnects, article
 following resumes, and Stop remains effective after reload without starting a
-server when articles change. Check the latest
+server when articles change. The
+[first three-platform validation run](https://github.com/gene891212/hugo-desk/actions/runs/39131273625)
+passed on Windows, macOS, and Linux. Check the latest
 [three-platform CI results](https://github.com/gene891212/hugo-desk/actions/workflows/ci.yml)
 before relying on a build. See [Contributing](CONTRIBUTING.md) for test commands.
 

@@ -145,3 +145,19 @@ unmodified, and retain source attribution for the example articles.
 - Windows Computer Use was used for initial editor inspection, then Playwright
   connected directly to the isolated editor renderer for recording and reload
   checks, so foreground interaction was not required during capture.
+
+## First GitHub CI validation — 2026-10-18
+
+- Pushed source commit `e3e307338a15d0e6017466a9a3c257cccf3c61e2` to
+  `https://github.com/gene891212/hugo-desk` through SSH.
+- [Check run 39131273625](https://github.com/gene891212/hugo-desk/actions/runs/39131273625)
+  passed on `windows-latest`, `macos-latest`, and `ubuntu-latest`. All three
+  completed dependency installation, syntax checks, module/real Hugo tests,
+  actual VS Code 1.90.2 terminal/Webview lifecycle checks, dependency audit,
+  packaging, and VSIX artifact upload. Linux editor tests used Xvfb.
+- This establishes automated macOS/Linux coverage. Manual visual checks on
+  those hosts and Antigravity compatibility still remain unverified.
+- Author and MIT copyright holder are `gene891212`; repository, homepage, and
+  issues metadata are set. Store publishing still requires the registered
+  publisher ID and the corresponding Open VSX namespace. CI artifacts use the
+  local testing publisher until that setup is complete.

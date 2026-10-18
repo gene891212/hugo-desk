@@ -15,7 +15,7 @@ Initial release of Hugo Desk.
   subdirectory base URLs, and HTML endings.
 - Parse YAML/TOML front matter with nested scopes and show malformed metadata clearly.
 - Automated editor terminal/Webview lifecycle checks for the Windows, macOS,
-  and Linux CI jobs. macOS/Linux results remain pending.
+  and Linux CI jobs; the first three-platform run passed on all hosts.
 
 ### Changed
 
