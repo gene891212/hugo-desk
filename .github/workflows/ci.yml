@@ -36,7 +36,7 @@ jobs:
         if: runner.os != 'Linux'
         run: npm run test:editor
       - run: npm audit
-      - run: npm run package
+      - run: npm run package:release
       - uses: actions/upload-artifact@v4
         with:
           name: hugo-desk-${{ matrix.os }}

@@ -161,3 +161,19 @@ unmodified, and retain source attribution for the example articles.
   issues metadata are set. Store publishing still requires the registered
   publisher ID and the corresponding Open VSX namespace. CI artifacts use the
   local testing publisher until that setup is complete.
+
+## Registered publisher package — 2026-10-18
+
+- Owner confirmed `gene891212` for both the Marketplace publisher and Open VSX
+  namespace. The manifest now identifies the extension as
+  `gene891212.hugo-desk`; version remains `0.1.0` with the preview flag.
+- `npm run package:release` passed metadata validation, syntax checks, and all
+  44 tests with no skips. Inspected the resulting VSIX: both manifests contain
+  the registered publisher, README links/images use HTTPS GitHub URLs, all
+  three production dependencies are present, and tests, scripts, recordings,
+  editor downloads, and development dependencies are excluded.
+- Installed the VSIX into a separate Windows VS Code 1.142.0 profile and
+  extension directory. CLI listing reports `gene891212.hugo-desk@0.1.0`.
+- CI now packages with `package:release` so its downloadable artifacts receive
+  the same release metadata checks and README link rewriting.
+- Registry upload and public listing verification remain separate steps.
