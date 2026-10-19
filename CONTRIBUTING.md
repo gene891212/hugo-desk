@@ -52,8 +52,10 @@ IDs require a migration plan before renaming.
 - `npm run package`: runs syntax checks/tests via `vscode:prepublish`, then creates
   `hugo-desk-0.1.0.vsix` with production dependencies included.
 
-CI runs module, real Hugo lifecycle, and editor smoke tests on Windows/macOS/Linux;
-it does not publish. See
+CI runs module, real Hugo lifecycle, and editor smoke tests on Windows/macOS/Linux.
+Version tags run the same checks before the Release workflow publishes a GitHub
+release with its validated VSIX. Manual Release workflow runs are dry runs.
+Marketplace and Open VSX uploads remain separate. See
 [RELEASING.md](RELEASING.md) before preparing a public release.
 
 ## Source layout

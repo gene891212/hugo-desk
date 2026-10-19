@@ -1,7 +1,8 @@
 # Release preparation
 
-0.1.0 is a preview prepared for publication. This repository has no publish
-script or publishing workflow. Building a VSIX does not upload it to a registry.
+0.1.0 is the first public preview. Marketplace and Open VSX publishing are manual.
+The GitHub Release workflow tests and publishes future version tags automatically;
+building a VSIX locally does not upload it to a registry.
 
 ## Release identity
 
@@ -37,6 +38,32 @@ metadata are set in `package.json`.
    version/date, and review the packaged contents.
 
 No command above creates a GitHub repository, registry listing, or public release.
+
+## GitHub Release automation
+
+- Branch pushes and pull requests run the **Check** workflow on Windows, macOS,
+  and Linux. Each host runs Hugo, module and VS Code editor tests, dependency
+  audit, and release packaging.
+- Pushing a new `v*` tag runs the **Release** workflow with the same three-platform
+  checks. The tag must exactly match `v` plus the package version, and the
+  changelog must contain a dated, nonempty section for that version.
+- After all hosts pass, Release attaches the Ubuntu job's universal VSIX and
+  creates release notes from that changelog section. `preview: true` makes the
+  GitHub release a pre-release. Existing releases/assets are not overwritten.
+- **Actions → Release → Run workflow** checks the full process as a dry run.
+  It does not create a tag, GitHub release, or store listing.
+- GitHub publication uses the workflow's built-in `GITHUB_TOKEN`; no personal
+  token is needed. Only the publication job has `contents: write` permission.
+  Marketplace and Open VSX uploads remain manual.
+
+For the next version, update `package.json`, the lockfile, and `CHANGELOG.md`,
+commit and push the changes, then create and push the matching version tag.
+Inspect the Release run and its attached VSIX before uploading that same asset
+to Marketplace and Open VSX.
+
+The original `v0.1.0` release points to source commit `1a2364c` used for the
+already-published store package. It is created separately with the original
+VSIX; this automation was added afterward and applies to subsequent version tags.
 
 ## Upload the validated artifact
 

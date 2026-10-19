@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    uses: ./.github/workflows/ci.yml
+
+  release:
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/download-artifact@v4
+        with:
+          name: hugo-desk-ubuntu-latest
+          path: release-assets
+      - name: Prepare release notes and package metadata
+        id: prepare
+        env:
+          RELEASE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+          RELEASE_DRY_RUN: ${{ github.event_name == 'workflow_dispatch' }}
+        run: node scripts/prepare-release.js --package-dir release-assets
+      - name: Publish GitHub release with the validated VSIX
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ steps.prepare.outputs.tag }}
+          RELEASE_TITLE: ${{ steps.prepare.outputs.title }}
+          RELEASE_ASSET: ${{ steps.prepare.outputs.asset }}
+          RELEASE_NOTES: ${{ steps.prepare.outputs.notes }}
+          RELEASE_PREVIEW: ${{ steps.prepare.outputs.prerelease }}
+        shell: bash
+        run: |
+          args=("$RELEASE_TAG" "$RELEASE_ASSET" --verify-tag --title "$RELEASE_TITLE" --notes-file "$RELEASE_NOTES")
+          if [ "$RELEASE_PREVIEW" = "true" ]; then
+            args+=(--prerelease)
+          fi
+          gh release create "${args[@]}"
+      - name: Report dry run
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          RELEASE_TITLE: ${{ steps.prepare.outputs.title }}
+          RELEASE_ASSET: ${{ steps.prepare.outputs.asset }}
+        shell: bash
+        run: |
+          printf '### Release dry run passed\n\nAll three platforms passed. Prepared **%s** with `%s`.\n\nNo tag, release, or store listing was created or changed.\n' "$RELEASE_TITLE" "$RELEASE_ASSET" >> "$GITHUB_STEP_SUMMARY"

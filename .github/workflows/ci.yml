@@ -2,7 +2,9 @@ name: Check
 
 on:
   push:
+    branches: ['**']
   pull_request:
+  workflow_call:
 
 permissions:
   contents: read
@@ -21,6 +23,11 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - name: Validate release tag and changelog
+        if: github.ref_type == 'tag'
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: node scripts/prepare-release.js --check
       - uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: '0.164.0'
